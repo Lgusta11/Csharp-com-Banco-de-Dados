@@ -1,12 +1,11 @@
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using ScreenSound.Modelos;
 
 namespace ScreenSound.Database
 {
-	internal class Connection : IDisposable
+	 internal class Connection : IDisposable
 	{
 		private readonly string _connectionString;
 		private MySqlConnection _mySqlConnection;
@@ -17,7 +16,7 @@ namespace ScreenSound.Database
 			_mySqlConnection = new MySqlConnection(_connectionString);
 		}
 
-		public Connection Open()
+		public MySqlConnection Open()
 		{
 			try
 			{
@@ -29,7 +28,7 @@ namespace ScreenSound.Database
 				Console.WriteLine("Erro ao abrir a conexão: " + ex.Message);
 			}
 
-			return this;
+			return _mySqlConnection;
 		}
 
 		public void Close()
@@ -41,51 +40,9 @@ namespace ScreenSound.Database
 			}
 		}
 
-		public void ExecuteNonQuery(string sqlCommand)
-		{
-			try
-			{
-				using (MySqlCommand command = new MySqlCommand(sqlCommand, _mySqlConnection))
-				{
-					command.ExecuteNonQuery();
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Erro ao executar o comando SQL: " + ex.Message);
-			}
-		}
-
 		public void Dispose()
 		{
-			Close();
+			_mySqlConnection.Dispose();
 		}
-
-		public IEnumerable<Artista> Listar()
-{
-    var Lista = new List<Artista>();
-
-    Open();
-
-    string MySql = "SELECT * FROM Artistas";
-    MySqlCommand command = new MySqlCommand(MySql, _mySqlConnection);
-
-    using (MySqlDataReader dataReader = command.ExecuteReader())
-    {
-        while (dataReader.Read())
-        {
-            string NomeArtista = Convert.ToString(dataReader["Nome"]) ?? string.Empty;
-            string BioArtista = Convert.ToString(dataReader["Bio"]) ?? string.Empty;
-            int IdArtista = Convert.ToInt32(dataReader["Id"]);
-
-            // Modificando a criação de instâncias de Artista para evitar valores nulos
-            Artista artista = new Artista(NomeArtista, BioArtista, IdArtista);
-            Lista.Add(artista);
-        }
-    }
-
-    return Lista;
-}
-
 	}
 }

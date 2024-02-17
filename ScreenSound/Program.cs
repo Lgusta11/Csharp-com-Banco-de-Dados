@@ -3,14 +3,25 @@ using ScreenSound.Menus;
 using ScreenSound.Modelos;
 using ScreenSound.Database;
 using MySql.Data.MySqlClient;
-   using (var conexao = new Connection().Open())
-        {
-            var listaArtistas = conexao.Listar();
-
-            foreach (var artista in listaArtistas)
+  	
+	
+		using (var artistaDal = new ArtistaDAL())
+		{
+    	using (var connection = artistaDal.Connection.Open())
+    	{
             {
-                Console.WriteLine(artista);
+                artistaDal.Adicionar(new Artista("Vasco", "te amo vasco"));
+                Console.WriteLine("\n\tArtista adicionado com sucesso!\n");
+
+                var artistas = artistaDal.Listar();
+
+                foreach (var artista in artistas)
+                {
+                    Console.WriteLine(artista);
+                }
             }
+
+
 
 
 // ------------------------------ MENU PRINCIPAL ---------------------------- //
@@ -68,10 +79,10 @@ void ExibirOpcoesDoMenu()
 		Console.WriteLine("Opção inválida");
 	}
 }
-	
-
-//ExibirOpcoesDoMenu();
 		}
+		}
+//ExibirOpcoesDoMenu();
+		
 
 //dotnet run --project ScreenSound/ScreenSound.csproj
 // cd ScreenSound
