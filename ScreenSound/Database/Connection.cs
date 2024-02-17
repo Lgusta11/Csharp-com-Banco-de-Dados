@@ -1,9 +1,12 @@
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using ScreenSound.Modelos;
 
 namespace ScreenSound.Database
 {
-	public class Connection : IDisposable
+	internal class Connection : IDisposable
 	{
 		private readonly string _connectionString;
 		private MySqlConnection _mySqlConnection;
@@ -14,7 +17,7 @@ namespace ScreenSound.Database
 			_mySqlConnection = new MySqlConnection(_connectionString);
 		}
 
-		public void Open()
+		public Connection Open()
 		{
 			try
 			{
@@ -25,11 +28,13 @@ namespace ScreenSound.Database
 			{
 				Console.WriteLine("Erro ao abrir a conexão: " + ex.Message);
 			}
+
+			return this;
 		}
 
 		public void Close()
 		{
-			if (_mySqlConnection.State != System.Data.ConnectionState.Closed)
+			if (_mySqlConnection.State != ConnectionState.Closed)
 			{
 				_mySqlConnection.Close();
 				Console.WriteLine("Conexão fechada.");
@@ -55,5 +60,32 @@ namespace ScreenSound.Database
 		{
 			Close();
 		}
+
+		public IEnumerable<Artista> Listar()
+{
+    var Lista = new List<Artista>();
+
+    Open();
+
+    string MySql = "SELECT * FROM Artistas";
+    MySqlCommand command = new MySqlCommand(MySql, _mySqlConnection);
+
+    using (MySqlDataReader dataReader = command.ExecuteReader())
+    {
+        while (dataReader.Read())
+        {
+            string NomeArtista = Convert.ToString(dataReader["Nome"]) ?? string.Empty;
+            string BioArtista = Convert.ToString(dataReader["Bio"]) ?? string.Empty;
+            int IdArtista = Convert.ToInt32(dataReader["Id"]);
+
+            // Modificando a criação de instâncias de Artista para evitar valores nulos
+            Artista artista = new Artista(NomeArtista, BioArtista, IdArtista);
+            Lista.Add(artista);
+        }
+    }
+
+    return Lista;
+}
+
 	}
 }

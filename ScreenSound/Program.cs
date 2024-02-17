@@ -3,16 +3,21 @@ using ScreenSound.Menus;
 using ScreenSound.Modelos;
 using ScreenSound.Database;
 using MySql.Data.MySqlClient;
- using (var conexao = new Connection())
-		{
-			conexao.Open();
+   using (var conexao = new Connection().Open())
+        {
+            var listaArtistas = conexao.Listar();
+
+            foreach (var artista in listaArtistas)
+            {
+                Console.WriteLine(artista);
+            }
 
 
 // ------------------------------ MENU PRINCIPAL ---------------------------- //
 
  
-Artista ira = new Artista("Ira!", "Banda Ira!");
-Artista beatles = new("The Beatles", "Banda The Beatles");
+Artista ira = new Artista("Ira!", "Banda Ira!", 1);
+Artista beatles = new Artista("The Beatles", "Banda The Beatles", 2);
 
 Dictionary<string, Artista> artistasRegistrados = new();
 artistasRegistrados.Add(ira.Nome, ira);
@@ -65,8 +70,8 @@ void ExibirOpcoesDoMenu()
 }
 	
 
-ExibirOpcoesDoMenu();
+//ExibirOpcoesDoMenu();
 		}
 
 //dotnet run --project ScreenSound/ScreenSound.csproj
-// cd
+// cd ScreenSound
