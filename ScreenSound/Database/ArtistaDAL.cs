@@ -19,44 +19,67 @@ namespace ScreenSound.Database
 			Connection?.Dispose();
 		}
 
-public void Adicionar(Artista artista)
-{
-	var mySqlConnection = Connection.Open();
-	string MySql = "INSERT INTO Artistas (Nome,FotoPerfil, Bio) VALUES (@Nome,@PerfilPadrao, @Bio)";
-	using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
-	{
-		command.Parameters.AddWithValue("@Nome", artista.Nome);
-		command.Parameters.AddWithValue("@PerfilPadrao", artista.FotoPerfil);
-		command.Parameters.AddWithValue("@Bio", artista.Bio);
+		#region Adicionar
 
-		int Retorno = command.ExecuteNonQuery();
-		Console.WriteLine($"Linhas afetadas:  {Retorno}");
-	}
-	Connection.Close();
-}
-
-public IEnumerable<Artista> Listar()
-{
-	var Lista = new List<Artista>();
-	var mySqlConnection = Connection.Open();
-	string MySql = "SELECT * FROM Artistas";
-	using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
-	{
-		using (MySqlDataReader dataReader = command.ExecuteReader())
+		public void Adicionar(Artista artista)
 		{
-			while (dataReader.Read())
+			var mySqlConnection = Connection.Open();
+			string MySql = "INSERT INTO Artistas (Nome,FotoPerfil, Bio) VALUES (@Nome,@PerfilPadrao, @Bio)";
+			using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
 			{
-				string NomeArtista = Convert.ToString(dataReader["Nome"]) ?? string.Empty;
-				string BioArtista = Convert.ToString(dataReader["Bio"]) ?? string.Empty;
-				int IdArtista = Convert.ToInt32(dataReader["Id"]);
+				command.Parameters.AddWithValue("@Nome", artista.Nome);
+				command.Parameters.AddWithValue("@PerfilPadrao", artista.FotoPerfil);
+				command.Parameters.AddWithValue("@Bio", artista.Bio);
 
-				Artista artista = new Artista(NomeArtista, BioArtista, IdArtista);
-				Lista.Add(artista);
+				int Retorno = command.ExecuteNonQuery();
+				Console.WriteLine($"Linhas afetadas:  {Retorno}");
 			}
+			Connection.Close();
 		}
-	}
-	Connection.Close();
-	return Lista;
+		#endregion
+
+		#region Listar
+
+		public IEnumerable<Artista> Listar()
+		{
+			var Lista = new List<Artista>();
+			var mySqlConnection = Connection.Open();
+			string MySql = "SELECT * FROM Artistas";
+			using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
+			{
+				using (MySqlDataReader dataReader = command.ExecuteReader())
+				{
+					while (dataReader.Read())
+					{
+						string NomeArtista = Convert.ToString(dataReader["Nome"]) ?? string.Empty;
+						string BioArtista = Convert.ToString(dataReader["Bio"]) ?? string.Empty;
+						int IdArtista = Convert.ToInt32(dataReader["Id"]);
+
+						Artista artista = new Artista(NomeArtista, BioArtista, IdArtista);
+						Lista.Add(artista);
+					}
+				}
+			}
+			Connection.Close();
+			return Lista;
+		}
+		#endregion
+
+
+	public void EditarArtista(int id, Artista artista)
+{
+    var mySqlConnection = Connection.Open();
+    string MySql = "UPDATE Artistas SET Nome = @Nome, FotoPerfil = @PerfilPadrao, Bio = @Bio WHERE Id = @Id";
+    using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
+    {
+        command.Parameters.AddWithValue("@Id", id);
+        command.Parameters.AddWithValue("@Nome", artista.Nome);
+        command.Parameters.AddWithValue("@PerfilPadrao", artista.FotoPerfil);
+        command.Parameters.AddWithValue("@Bio", artista.Bio);
+        command.ExecuteNonQuery();
+    }
+    Connection.Close();
 }
+
 	}
 }
