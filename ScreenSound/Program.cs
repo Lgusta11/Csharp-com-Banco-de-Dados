@@ -1,4 +1,4 @@
-﻿using System.Security;
+using System.Security;
 using Internal;
 using System;
 using ScreenSound.Menus;
@@ -25,17 +25,33 @@ using MySql.Data.MySqlClient;
 					Console.WriteLine(artista);
 				}
 				
-				var nomeDoArtista = Console.ReadLine();
-				
-				var artistaEncontrado = artistas.FirstOrDefault(a => a.Nome == nomeDoArtista);
-				
-				if (artistaEncontrado != null)
-				{
-					Console.WriteLine($"O artista {nomeDoArtista} não foi adicionado");
-				}else
-				{
-					Console.WriteLine($"O artista {nomeDoArtista} foi encontrado!! Partindo para a edição.");
-				}
+
+    var nomeDoArtista = Console.ReadLine();
+    var artistaEncontrado = artistas.FirstOrDefault(a => a.Nome == nomeDoArtista);
+
+    if (artistaEncontrado != null)
+    {
+    Console.WriteLine($"O artista {nomeDoArtista} foi encontrado!! Partindo para a edição.");
+
+
+    Console.Write("Novo nome: ");
+    string novoNome = Console.ReadLine();
+
+    Console.Write("Nova bio: ");
+    string novaBio = Console.ReadLine();
+
+    Console.Write("Nova foto de perfil: ");
+    string novaFotoPerfil = Console.ReadLine();
+
+
+    artistaDal.EditarArtista(artistaEncontrado.Id, new Artista(novoNome, novaBio, novaFotoPerfil));
+
+    Console.WriteLine($"Artista {nomeDoArtista} editado com sucesso!");
+    }
+    else
+    {
+    Console.WriteLine($"O artista {nomeDoArtista} não foi encontrado");
+    }
 				
 				
 				
