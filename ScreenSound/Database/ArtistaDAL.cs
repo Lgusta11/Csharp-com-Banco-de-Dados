@@ -68,18 +68,20 @@ namespace ScreenSound.Database
 
 	public void EditarArtista(int id, Artista artista)
 {
-    var mySqlConnection = Connection.Open();
-    string MySql = "UPDATE Artistas SET Nome = @Nome, FotoPerfil = @PerfilPadrao, Bio = @Bio WHERE Id = @Id";
-    using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
-    {
-        command.Parameters.AddWithValue("@Id", id);
-        command.Parameters.AddWithValue("@Nome", artista.Nome);
-        command.Parameters.AddWithValue("@PerfilPadrao", artista.FotoPerfil);
-        command.Parameters.AddWithValue("@Bio", artista.Bio);
-        command.ExecuteNonQuery();
-    }
-    Connection.Close();
+	var mySqlConnection = Connection.Open();
+	string MySql = "UPDATE Artistas SET Nome = @Nome, FotoPerfil = @PerfilPadrao, Bio = @Bio WHERE Id = @Id";
+	using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
+	{
+		command.Parameters.AddWithValue("@Id", id);
+		command.Parameters.AddWithValue("@Nome", artista.Nome);
+		command.Parameters.AddWithValue("@PerfilPadrao", artista.FotoPerfil);
+		command.Parameters.AddWithValue("@Bio", artista.Bio);
+		command.ExecuteNonQuery();
+	}
+	Connection.Close();
 }
+	//public void DeletarArtista(Artista artista){}
+	
 
 	}
 }

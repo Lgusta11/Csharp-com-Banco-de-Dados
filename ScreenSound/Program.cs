@@ -7,19 +7,27 @@ using MySql.Data.MySqlClient;
 	
 		using (var artistaDal = new ArtistaDAL())
 		{
-    	using (var connection = artistaDal.Connection.Open())
-    	{
-            {
-                artistaDal.Adicionar(new Artista("Vasco", "te amo vasco"));
-                Console.WriteLine("\n\tArtista adicionado com sucesso!\n");
+		using (var connection = artistaDal.Connection.Open())
+		{
+			{
+				artistaDal.Adicionar(new Artista("Vasco", "te amo vasco"));
+				Console.WriteLine("\n\tArtista adicionado com sucesso!\n");
+				
+				
+				
 
-                var artistas = artistaDal.Listar();
+				var artistas = artistaDal.Listar();
 
-                foreach (var artista in artistas)
-                {
-                    Console.WriteLine(artista);
-                }
-            }
+				foreach (var artista in artistas)
+				{
+					Console.WriteLine(artista);
+				}
+				
+				
+				
+				
+				
+			}
 
 
 
