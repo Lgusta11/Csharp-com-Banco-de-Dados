@@ -80,7 +80,18 @@ namespace ScreenSound.Database
 	}
 	Connection.Close();
 }
-	//public void DeletarArtista(Artista artista){}
+public void DeletarArtista(Artista artista)
+{
+	var mySqlConnection = Connection.Open();
+	string MySql = "DELETE FROM Artistas WHERE Id = @Id";
+	using (MySqlCommand command = new MySqlCommand(MySql, mySqlConnection))
+	{
+		command.Parameters.AddWithValue("@Id", artista.Id);
+		command.ExecuteNonQuery();
+	}
+	Connection.Close();
+}
+
 	
 
 	}
