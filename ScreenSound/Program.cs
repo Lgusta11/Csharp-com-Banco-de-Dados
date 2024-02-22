@@ -52,7 +52,41 @@ using MySql.Data.MySqlClient;
     {
     Console.WriteLine($"O artista {nomeDoArtista} não foi encontrado");
     }
-				
+
+
+				Console.Write("Você quer apagar algum artista? (S/N) ");
+string resposta = Console.ReadLine().ToUpper();
+
+if (resposta == "S")
+{
+    Console.Write("Qual o nome do artista que você quer apagar? ");
+    var nomeDoArtista = Console.ReadLine();
+    var artistaEncontrado = artistas.FirstOrDefault(a => a.Nome == nomeDoArtista);
+
+    if (artistaEncontrado != null)
+    {
+        Console.WriteLine($"O artista {nomeDoArtista} foi encontrado. Tem certeza que quer apagá-lo? (S/N) ");
+        string confirmacao = Console.ReadLine().ToUpper();
+
+        if (confirmacao == "S")
+        {
+            artistaDal.DeletarArtista(artistaEncontrado);
+            Console.WriteLine($"Artista {nomeDoArtista} apagado com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Operação cancelada.");
+        }
+    }
+    else
+    {
+        Console.WriteLine($"O artista {nomeDoArtista} não foi encontrado");
+    }
+    }
+    else
+    {
+    Console.WriteLine("Operação cancelada.");
+    }
 				
 				
 				
