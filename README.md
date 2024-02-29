@@ -48,15 +48,5 @@ O Screen Sound 3.0 é uma aplicação de console para gerenciar artistas e suas 
    dotnet run
    ```
 
-## Uso
 
-Siga as instruções na tela para interagir com a aplicação. Você pode cadastrar artistas, adicionar músicas e explorar vários recursos.
-
-## Contribuições
-
-Contribuições são bem-vindas! Por favor, siga as [Diretrizes de Contribuição](CONTRIBUTING.md).
-
-## Licença
-
-Este projeto é licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
