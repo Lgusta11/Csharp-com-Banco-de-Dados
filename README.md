@@ -60,10 +60,3 @@ Contribuições são bem-vindas! Por favor, siga as [Diretrizes de Contribuiçã
 
 Este projeto é licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Agradecimentos
-
-- Agradecimento a quem contribuiu com código
-- Inspiração
-- Etc.
-
-```
