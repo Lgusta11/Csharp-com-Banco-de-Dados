@@ -1,50 +1,54 @@
 using ScreenSound.Database;
 using ScreenSound.Menus;
 using ScreenSound.Modelos;
-try
+using System;
+using System.Collections.Generic;
+
+namespace ScreenSound
 {
-    var artistaDAL = new ArtistaDAL();
-    /*    artistaDAL.Adicionar(new Artista("Foo Fighters", "Foo Fighters é uma banda de rock alternativo americana formada por Dave Grohl em 1995."));*/
-
-    var artistaPitty = new Artista("Pitty", "Priscilla Novaes Leone, mais conhecida como Pitty, é uma cantora, compositora, produtora, escritora e multi-instrumentista brasileira.") { Id = 1003 };
-
-    artistaDAL.Atualizar(artistaPitty);
-    artistaDAL.Deletar(artistaPitty);
-
-    var listaArtistas = artistaDAL.Listar();
-
-    foreach (var artista in listaArtistas)
+    class Program
     {
-        Console.WriteLine(artista);
-    }
-}
-catch (Exception ex)
-{
+        static void Main(string[] args)
+        {
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=screensound;Uid=root;Pwd=;";
 
-    Console.WriteLine(ex.Message);
-}
+            try
+            {
+                using (var context = new ScreenSoundContext(connectionString))
+                {
+                    var artistaDAL = new ArtistaDAL(context);
 
-return;
+                    var listaArtistas = artistaDAL.Listar();
+                    foreach (var artista in listaArtistas)
+                    {
+                        Console.WriteLine(artista);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
+            Dictionary<string, Artista> artistasRegistrados = new Dictionary<string, Artista>();
+            Artista ira = new Artista("Ira!", "Banda Ira!");
+            Artista beatles = new Artista("The Beatles", "Banda The Beatles");
+            artistasRegistrados.Add(ira.Nome, ira);
+            artistasRegistrados.Add(beatles.Nome, beatles);
 
-Artista ira = new Artista("Ira!", "Banda Ira!");
-Artista beatles = new("The Beatles", "Banda The Beatles");
+            Dictionary<int, Menu> opcoes = new Dictionary<int, Menu>();
+            opcoes.Add(1, new MenuRegistrarArtista());
+            opcoes.Add(2, new MenuRegistrarMusica());
+            opcoes.Add(3, new MenuMostrarArtistas());
+            opcoes.Add(4, new MenuMostrarMusicas());
+            opcoes.Add(-1, new MenuSair());
 
-Dictionary<string, Artista> artistasRegistrados = new();
-artistasRegistrados.Add(ira.Nome, ira);
-artistasRegistrados.Add(beatles.Nome, beatles);
+            ExibirOpcoesDoMenu(opcoes, artistasRegistrados);
+        }
 
-Dictionary<int, Menu> opcoes = new();
-opcoes.Add(1, new MenuRegistrarArtista());
-opcoes.Add(2, new MenuRegistrarMusica());
-opcoes.Add(3, new MenuMostrarArtistas());
-opcoes.Add(4, new MenuMostrarMusicas());
-opcoes.Add(-1, new MenuSair());
-
-void ExibirLogo()
-{
-    Console.WriteLine(@"
-
+        static void ExibirOpcoesDoMenu(Dictionary<int, Menu> opcoes, Dictionary<string, Artista> artistasRegistrados)
+        {
+            Console.WriteLine(@"
 ░██████╗░█████╗░██████╗░███████╗███████╗███╗░░██╗  ░██████╗░█████╗░██╗░░░██╗███╗░░██╗██████╗░
 ██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝████╗░██║  ██╔════╝██╔══██╗██║░░░██║████╗░██║██╔══██╗
 ╚█████╗░██║░░╚═╝██████╔╝█████╗░░█████╗░░██╔██╗██║  ╚█████╗░██║░░██║██║░░░██║██╔██╗██║██║░░██║
@@ -52,32 +56,27 @@ void ExibirLogo()
 ██████╔╝╚█████╔╝██║░░██║███████╗███████╗██║░╚███║  ██████╔╝╚█████╔╝╚██████╔╝██║░╚███║██████╔╝
 ╚═════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚══╝  ╚═════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝╚═════╝░
 ");
-    Console.WriteLine("Boas vindas ao Screen Sound 3.0!");
-}
+            Console.WriteLine("Boas vindas ao Screen Sound 3.0!");
+            Console.WriteLine("\nDigite 1 para registrar um artista");
+            Console.WriteLine("Digite 2 para registrar a música de um artista");
+            Console.WriteLine("Digite 3 para mostrar todos os artistas");
+            Console.WriteLine("Digite 4 para exibir todas as músicas de um artista");
+            Console.WriteLine("Digite -1 para sair");
 
-void ExibirOpcoesDoMenu()
-{
-    ExibirLogo();
-    Console.WriteLine("\nDigite 1 para registrar um artista");
-    Console.WriteLine("Digite 2 para registrar a música de um artista");
-    Console.WriteLine("Digite 3 para mostrar todos os artistas");
-    Console.WriteLine("Digite 4 para exibir todas as músicas de um artista");
-    Console.WriteLine("Digite -1 para sair");
+            Console.Write("\nDigite a sua opção: ");
+            string opcaoEscolhida = Console.ReadLine()!;
+            int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
 
-    Console.Write("\nDigite a sua opção: ");
-    string opcaoEscolhida = Console.ReadLine()!;
-    int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
-
-    if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
-    {
-        Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
-        menuASerExibido.Executar(artistasRegistrados);
-        if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu();
-    } 
-    else
-    {
-        Console.WriteLine("Opção inválida");
+            if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
+            {
+                Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
+                menuASerExibido.Executar(artistasRegistrados);
+                if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu(opcoes, artistasRegistrados);
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida");
+            }
+        }
     }
 }
-
-ExibirOpcoesDoMenu();
