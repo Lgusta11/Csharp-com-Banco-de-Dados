@@ -22,7 +22,7 @@ O Screen Sound 3.0 é uma aplicação de console para gerenciar artistas e suas 
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/Lgusta11/screensound.git
+   https://github.com/Lgusta11/Csharp-com-Banco-de-Dados
    cd screensound
    ```
 
