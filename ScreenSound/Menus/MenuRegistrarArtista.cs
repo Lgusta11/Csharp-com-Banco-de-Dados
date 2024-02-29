@@ -1,25 +1,21 @@
-﻿using ScreenSound.Modelos;
-using System;
-using System.Collections.Generic;
+﻿﻿using ScreenSound.Modelos;
 
-namespace ScreenSound.Menus
+namespace ScreenSound.Menus;
+
+internal class MenuRegistrarArtista : Menu
 {
-    internal class MenuRegistrarArtista : Menu
+    public override void Executar(Dictionary<string, Artista> artistasRegistrados)
     {
-        public override void Executar(Dictionary<string, Artista> artistasRegistrados)
-        {
-            base.Executar(artistasRegistrados);
-            ExibirTituloDaOpcao("Registro dos Artistas");
-            Console.Write("Digite o nome do artista que deseja registrar: ");
-            string nomeDoArtista = Console.ReadLine()!;
-            Console.Write("Digite a bio do artista que deseja registrar: ");
-            string bioDoArtista = Console.ReadLine()!;
-            Console.Write("Digite a foto de perfil do artista que deseja registrar: ");
-            string fotoPerfilDoArtista = Console.ReadLine()!;
-            Artista artista = new Artista(nomeDoArtista, bioDoArtista, fotoPerfilDoArtista);
-            artistasRegistrados.Add(nomeDoArtista, artista);
-            Console.WriteLine($"O artista {nomeDoArtista} foi registrado com sucesso!");
-            Console.Clear();
-        }
+        base.Executar(artistasRegistrados);
+        ExibirTituloDaOpcao("Registro dos Artistas");
+        Console.Write("Digite o nome do artista que deseja registrar: ");
+        string nomeDoArtista = Console.ReadLine()!;
+        Console.Write("Digite a bio do artista que deseja registrar: ");
+        string bioDoArtista = Console.ReadLine()!;
+        Artista artista = new Artista(nomeDoArtista, bioDoArtista);
+        artistasRegistrados.Add(nomeDoArtista, artista);
+        Console.WriteLine($"O artista {nomeDoArtista} foi registrado com sucesso!");
+        Thread.Sleep(4000);
+        Console.Clear();
     }
 }
