@@ -1,5 +1,4 @@
-﻿
-using ScreenSound.Modelos;
+﻿using ScreenSound.Modelos;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +14,9 @@ namespace ScreenSound.Menus
             string nomeDoArtista = Console.ReadLine()!;
             Console.Write("Digite a bio do artista que deseja registrar: ");
             string bioDoArtista = Console.ReadLine()!;
-            Artista artista = new Artista(nomeDoArtista, bioDoArtista);
+            Console.Write("Digite a foto de perfil do artista que deseja registrar: ");
+            string fotoPerfilDoArtista = Console.ReadLine()!;
+            Artista artista = new Artista(nomeDoArtista, bioDoArtista, fotoPerfilDoArtista);
             artistasRegistrados.Add(nomeDoArtista, artista);
             Console.WriteLine($"O artista {nomeDoArtista} foi registrado com sucesso!");
             Console.Clear();
