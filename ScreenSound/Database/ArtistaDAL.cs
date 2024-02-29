@@ -1,41 +1,46 @@
+using Microsoft.EntityFrameworkCore;
 using ScreenSound.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ScreenSound.Database
 {
-    internal class ArtistaDAL
+    internal class ArtistaDAL : DAL<Artista>
     {
-        private readonly ScreenSoundContext _context;
+        private readonly ScreenSoundContext context;
 
         public ArtistaDAL(ScreenSoundContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        public IEnumerable<Artista> Listar()
+        public override IEnumerable<Artista> Listar()
         {
-            return _context.Artistas.ToList();
+            return context.Artistas.ToList();
         }
 
-        public void Adicionar(Artista artista)
+        public override void Adicionar(Artista artista)
         {
-            _context.Artistas.Add(artista);
-            _context.SaveChanges();
+            context.Artistas.Add(artista);
+            context.SaveChanges();
         }
 
-        public void Atualizar(Artista artista)
+        public override void Atualizar(Artista artista)
         {
-            _context.Artistas.Update(artista);
-            _context.SaveChanges();
+            context.Artistas.Update(artista);
+            context.SaveChanges();
         }
 
-        public void Deletar(Artista artista)
+        public override void Deletar(Artista artista)
         {
-            _context.Artistas.Remove(artista);
-            _context.SaveChanges();
+            context.Artistas.Remove(artista);
+            context.SaveChanges();
+        }
+
+        public Artista RecuperarPeloNome(string nome)
+        {
+            return context.Artistas.FirstOrDefault(a => a.Nome.Equals(nome)) ?? throw new InvalidOperationException("Artista não encontrado");
         }
     }
 }

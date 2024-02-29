@@ -1,4 +1,6 @@
-﻿﻿namespace ScreenSound.Modelos; 
+﻿﻿using System.ComponentModel.DataAnnotations;
+
+namespace ScreenSound.Modelos; 
 
 internal class Artista 
 {
@@ -15,6 +17,9 @@ internal class Artista
     public string FotoPerfil { get; set; }
     public string Bio { get; set; }
     public int Id { get; set; }
+    
+    [Timestamp]
+    public byte[] RowVersion { get; set; }
 
     public void AdicionarMusica(Musica musica)
     {

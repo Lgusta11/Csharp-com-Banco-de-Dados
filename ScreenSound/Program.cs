@@ -17,6 +17,10 @@ namespace ScreenSound
                 using (var context = new ScreenSoundContext(connectionString))
                 {
                     var artistaDAL = new ArtistaDAL(context);
+                    //var novoArtistaDAL = new Artista("Payet", "Vasco da gama") {Id = 10};
+                    //var ArtistaDAL = new ArtistaDAL(context);
+                    //artistaDAL.Atualizar(novoArtistaDAL);
+
 
                     var listaArtistas = artistaDAL.Listar();
                     foreach (var artista in listaArtistas)
@@ -30,7 +34,7 @@ namespace ScreenSound
                 Console.WriteLine(ex.Message);
             }
 
-            Dictionary<string, Artista> artistasRegistrados = new Dictionary<string, Artista>();
+       /*     Dictionary<string, Artista> artistasRegistrados = new Dictionary<string, Artista>();
             Artista ira = new Artista("Ira!", "Banda Ira!");
             Artista beatles = new Artista("The Beatles", "Banda The Beatles");
             artistasRegistrados.Add(ira.Nome, ira);
@@ -77,6 +81,7 @@ namespace ScreenSound
             {
                 Console.WriteLine("Opção inválida");
             }
-        }
+        */
+    }
     }
 }

@@ -9,6 +9,8 @@ namespace ScreenSound.Database
     internal class ScreenSoundContext : DbContext
     {
         public DbSet<Artista> Artistas { get; set; }
+        public DbSet<Musica> Musicas { get; set; }
+
 
         private readonly string _connectionString;
         private MySqlConnection _mySqlConnection;
@@ -17,6 +19,10 @@ namespace ScreenSound.Database
         {
             _connectionString = connectionString;
             _mySqlConnection = new MySqlConnection(connectionString);
+        }
+
+        public ScreenSoundContext()
+        {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
