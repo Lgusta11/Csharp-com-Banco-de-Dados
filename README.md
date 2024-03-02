@@ -24,6 +24,9 @@ A aplicação é interativa e oferece menus simples para facilitar o uso. Ao ini
 3. Certifique-se de ter um servidor MySQL configurado e ajuste a string de conexão no código, se necessário.
 
 4. Execute a aplicação e comece a explorar as funcionalidades!
+<<<<<<< HEAD
+=======
+
 
 ## Repositório, Curso e Perfil GitHub
 
