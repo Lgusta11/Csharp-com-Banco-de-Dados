@@ -1,52 +1,34 @@
-```markdown
-# Screen Sound 3.0
+# Projeto Screen Sound 3.0
 
-[![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
+Este é o projeto **Screen Sound 3.0**, uma aplicação simples desenvolvida em C# que permite o registro e visualização de artistas e músicas, com integração a bancos de dados MySQL.
 
-O Screen Sound 3.0 é uma aplicação de console para gerenciar artistas e suas músicas.
+## Como Funciona
 
-## Recursos
+O projeto utiliza o SDK da Microsoft.NET e o Entity Framework Core para se conectar ao banco de dados. As principais funcionalidades incluem:
 
-- **Gerenciamento de Artistas:** Adicione, atualize, exclua e exiba informações sobre artistas.
-- **Gerenciamento de Músicas:** Registre e gerencie músicas associadas aos artistas.
+1. **Registro de Artistas:** Adicione novos artistas com seus respectivos perfis e biografias.
+2. **Registro de Músicas:** Associe músicas aos artistas existentes para criar uma discografia.
 
-## Começando
+A aplicação é interativa e oferece menus simples para facilitar o uso. Ao iniciar, você pode registrar artistas, músicas e explorar a discografia dos artistas.
 
-### Pré-requisitos
-
-- .NET SDK
-- MySQL Server
-
-### Instalação
+## Como Usar
 
 1. Clone o repositório:
 
    ```bash
-   https://github.com/Lgusta11/Csharp-com-Banco-de-Dados
-   cd screensound
+   git clone https://github.com/Lgusta11/Csharp-com-Banco-de-Dados.git
    ```
 
-2. Restaure as dependências:
+2. Abra o projeto usando o Visual Studio ou outro ambiente de desenvolvimento C#.
 
-   ```bash
-   dotnet restore
-   ```
+3. Certifique-se de ter um servidor MySQL configurado e ajuste a string de conexão no código, se necessário.
 
-3. Configure a conexão com o banco de dados:
+4. Execute a aplicação e comece a explorar as funcionalidades!
 
-   - Abra o arquivo `appsettings.json` e atualize a seção `ConnectionStrings` com os detalhes do seu servidor MySQL.
+## Repositório, Curso e Perfil GitHub
 
-4. Aplique as migrações do banco de dados:
+- [Repositório do Projeto](https://github.com/Lgusta11/Csharp-com-Banco-de-Dados)
+- **Curso:** Este projeto foi desenvolvido como parte do curso de C# e Banco de Dados da [Alura](https://www.alura.com.br/).
+- [Perfil GitHub - Lgusta11](https://github.com/Lgusta11)
 
-   ```bash
-   dotnet ef database update
-   ```
-
-5. Execute a aplicação:
-
-   ```bash
-   dotnet run
-   ```
-
-
-
+Sinta-se à vontade para contribuir, relatar problemas ou simplesmente explorar o código! 🎶
