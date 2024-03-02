@@ -16,7 +16,7 @@ namespace ScreenSound
             {
                 using (var context = new ScreenSoundContext(connectionString))
                 {
-                    var artistaDAL = new ArtistaDAL(context);
+                    var artistaDAL = new DAL<Artista>(context);
                     //var novoArtistaDAL = new Artista("Payet", "Vasco da gama") {Id = 10};
                     //var ArtistaDAL = new ArtistaDAL(context);
                     //artistaDAL.Atualizar(novoArtistaDAL);
