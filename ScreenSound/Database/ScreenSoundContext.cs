@@ -28,7 +28,8 @@ namespace ScreenSound.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 21)); // Substitua pela versão do seu servidor MySQL
-            optionsBuilder.UseMySql(_connectionString, serverVersion);
+            optionsBuilder.UseMySql(_connectionString, serverVersion)
+            .UseLazyLoadingProxies();
         }
 
         public void OpenConnection()
